@@ -1,16 +1,18 @@
+import { createCorsResponse, corsOptionsResponse } from '@/lib/cors'
+
+export async function OPTIONS() {
+  return corsOptionsResponse()
+}
+
 // Attendance notification endpoint
 export async function POST(req: Request) {
   try {
     const { studentName, course, absent } = await req.json()
 
     if (!absent) {
-      return new Response(
-        JSON.stringify({ success: true, notified: false }),
-        { headers: { 'Content-Type': 'application/json' } }
-      )
+      return createCorsResponse({ success: true, notified: false })
     }
 
-    // Simulate sending notifications via SMS, Zalo, Email
     const notifications = [
       {
         type: 'SMS',
@@ -30,17 +32,14 @@ export async function POST(req: Request) {
       },
     ]
 
-    return new Response(
-      JSON.stringify({
-        success: true,
-        studentName,
-        course,
-        notified: true,
-        notifications,
-      }),
-      { headers: { 'Content-Type': 'application/json' } }
-    )
+    return createCorsResponse({
+      success: true,
+      studentName,
+      course,
+      notified: true,
+      notifications,
+    })
   } catch (err) {
-    return new Response(JSON.stringify({ error: String(err) }), { status: 500 })
+    return createCorsResponse({ error: String(err) }, { status: 500 })
   }
 }

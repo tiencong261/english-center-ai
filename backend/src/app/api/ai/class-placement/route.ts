@@ -1,12 +1,15 @@
 import prisma from '@/lib/prisma'
+import { createCorsResponse, corsOptionsResponse } from '@/lib/cors'
+
+export async function OPTIONS() {
+  return corsOptionsResponse()
+}
 
 // Simple class placement logic: find available class matching student level and schedule
 export async function POST(req: Request) {
   try {
     const { student, level, schedule } = await req.json()
 
-    // Mock: find class with available slots matching level and schedule
-    // In production, query database for classes
     const mockClasses = [
       {
         id: 1,
@@ -26,7 +29,6 @@ export async function POST(req: Request) {
       },
     ]
 
-    // Filter classes matching student level and schedule
     const matchedClass = mockClasses.find(
       (cls) =>
         cls.level === level &&
@@ -34,30 +36,27 @@ export async function POST(req: Request) {
     )
 
     if (matchedClass && matchedClass.availableSlots > 0) {
-      return new Response(
-        JSON.stringify({
-          success: true,
-          placement: {
-            student,
-            class: matchedClass.name,
-            classId: matchedClass.id,
-            schedule: matchedClass.schedule.join(', '),
-            time: matchedClass.time,
-            availableSlots: matchedClass.availableSlots,
-          },
-        }),
-        { headers: { 'Content-Type': 'application/json' } }
-      )
+      return createCorsResponse({
+        success: true,
+        placement: {
+          student,
+          class: matchedClass.name,
+          classId: matchedClass.id,
+          schedule: matchedClass.schedule.join(', '),
+          time: matchedClass.time,
+          availableSlots: matchedClass.availableSlots,
+        },
+      })
     }
 
-    return new Response(
-      JSON.stringify({
+    return createCorsResponse(
+      {
         success: false,
         message: 'Không tìm thấy lớp phù hợp',
-      }),
-      { status: 404, headers: { 'Content-Type': 'application/json' } }
+      },
+      { status: 404 }
     )
   } catch (err) {
-    return new Response(JSON.stringify({ error: String(err) }), { status: 500 })
+    return createCorsResponse({ error: String(err) }, { status: 500 })
   }
 }
