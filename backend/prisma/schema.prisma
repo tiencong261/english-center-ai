@@ -1,0 +1,60 @@
+// Prisma schema for english-center-ai MVP
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id        BigInt   @id @default(autoincrement())
+  fullName  String   @map("full_name")
+  phone     String?
+  email     String?  @unique
+  level     String?
+  leads     Lead[]
+  enrolls   Enrollment[]
+  attendance Attendance[]
+  createdAt DateTime @default(now())
+}
+
+model Course {
+  id    BigInt @id @default(autoincrement())
+  name  String
+  fee   Decimal?
+  enrolls Enrollment[]
+}
+
+model Enrollment {
+  id         BigInt  @id @default(autoincrement())
+  student    Student @relation(fields: [studentId], references: [id])
+  studentId  BigInt
+  course     Course  @relation(fields: [courseId], references: [id])
+  courseId   BigInt
+  status     String  @default("active")
+  createdAt  DateTime @default(now())
+}
+
+model Attendance {
+  id        BigInt  @id @default(autoincrement())
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId BigInt
+  classDate DateTime
+  present   Boolean
+}
+
+model Lead {
+  id        BigInt   @id @default(autoincrement())
+  name      String
+  phone     String
+  intent    String?
+  target    String?
+  level     String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  studentId BigInt?
+  student   Student? @relation(fields: [studentId], references: [id])
+}
