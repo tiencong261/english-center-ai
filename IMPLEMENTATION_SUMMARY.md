@@ -2,7 +2,7 @@
 
 **Status:** ✅ COMPLETE  
 **Date:** June 1, 2026  
-**Version:** 1.0 (Version 1 of 3-version plan)
+**Version:** 3.0 (Version 3 of 3-version plan)
 
 ---
 
@@ -19,7 +19,7 @@
 - [x] Created `backend/.env.example` - template for database connection
 - [x] Updated `backend/package.json` - added Prisma scripts + dependencies
 
-### 2️⃣ **Backend API Endpoints (4 Modules)** ✅
+### 2️⃣ **Backend API Endpoints (9 Modules)** ✅
 
 #### Module 1: Lead CRM
 - File: `backend/src/app/api/leads/route.ts`
@@ -49,11 +49,37 @@
   - SMS notifications
   - Email alerts
   - Zalo messages
+  - WhatsApp / Telegram notification stubs
+
+#### Module 5: Academic Report
+- File: `backend/src/app/api/ai/academic-report/route.ts`
+- POST `/api/ai/academic-report` - Generate student progress summaries and predicted development
+- Returns attendance summary, skill strengths, and teacher recommendations
+
+#### Module 6: Parent Portal
+- File: `backend/src/app/api/parent-portal/route.ts`
+- POST `/api/parent-portal` - Parent view summary for attendance and course progress
+- Includes student performance notes and communication tips
+
+#### Module 7: AI Teacher Assistant
+- File: `backend/src/app/api/ai/teacher-assistant/route.ts`
+- POST `/api/ai/teacher-assistant` - Generate lesson vocabulary, homework, quiz questions, and teacher notes
+- Supports lesson planning for live classes and homework follow-up
+
+#### Module 8: Class Recommendation
+- File: `backend/src/app/api/ai/class-recommendation/route.ts`
+- POST `/api/ai/class-recommendation` - Recommend class level, schedule, and next steps based on learner goals
+- Uses advanced recommendation logic and confidence scoring
+
+#### Module 9: Billing / Invoice
+- File: `backend/src/app/api/payments/invoice/route.ts`
+- POST `/api/payments/invoice` - Generate invoice data and mock payment link
+- Prepares system for later real payment gateway integration
 
 ### 3️⃣ **Frontend MVP UI** ✅
 - File: `frontend/src/App.tsx` (completely rewritten)
 - Features:
-  - 4 tab navigation (Module 1-4)
+  - 9 tab navigation (Module 1-9)
   - Interactive forms for each module
   - Real-time API calls and response display
   - Vietnamese UI labels

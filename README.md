@@ -1,6 +1,6 @@
-# English Center AI MVP - Version 1
+# English Center AI MVP - Version 3
 
-🎓 Hệ thống quản lý trung tâm tiếng Anh AI-powered với CRM, AI tư vấn, xếp lớp và điểm danh tự động.
+🎓 Hệ thống quản lý trung tâm tiếng Anh AI-powered với CRM, AI tư vấn, xếp lớp, báo cáo học tập, cổng phụ huynh và trợ giảng AI.
 
 ## 🚀 MVP Modules (Version 1)
 
@@ -296,22 +296,22 @@ CREATE TABLE leads (
 
 ## 🔄 Roadmap
 
-### Version 1 (✅ Current)
+### Version 3 (✅ Current)
 - ✅ CRM Lead Management
 - ✅ AI Chat Tư Vấn
-- ✅ AI Xếp Lớp (rule-based)
-- ✅ AI Attendance Notification
+- ✅ AI Class Placement
+- ✅ AI Attendance Notification (SMS/Email/Zalo/WhatsApp/Telegram)
+- ✅ Academic Reports
+- ✅ Parent Portal
+- ✅ AI Teacher Assistant
+- ✅ Advanced Class Recommendations
+- ✅ Payment invoice generation
 
-### Version 2
-- 📋 Academic Reports (AI generates student progress reports)
-- 📋 Parent Portal (parents view child's attendance, scores, skills)
-- 📋 Enhanced attendance with real-time notifications
-
-### Version 3
-- 📋 AI Teacher Assistant (generate vocabulary, quizzes, homework)
-- 📋 AI Class Recommendations (advanced placement logic)
-- 📋 Integration with payment systems
-- 📋 WhatsApp/Telegram integration
+### Version 4 (Next)
+- 📋 Real payment gateway integration
+- 📋 Teacher workflow automation
+- 📋 Student retention analytics
+- 📋 Chatbot across WhatsApp/Telegram channels
 
 ## 💰 Monetization
 

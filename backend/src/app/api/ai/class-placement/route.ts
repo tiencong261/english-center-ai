@@ -1,4 +1,3 @@
-import prisma from '@/lib/prisma'
 import { createCorsResponse, corsOptionsResponse } from '@/lib/cors'
 
 export async function OPTIONS() {
