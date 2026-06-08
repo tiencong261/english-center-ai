@@ -2,18 +2,19 @@ version: '3.9'
 
 services:
   postgres:
-    image: postgres:16-alpine
-    container_name: english-center-postgres
+    image: mysql:8-alpine
+    container_name: english-center-mysql
     environment:
-      POSTGRES_USER: english_center
-      POSTGRES_PASSWORD: password123
-      POSTGRES_DB: english_center_dev
+      MYSQL_ROOT_PASSWORD: root123456
+      MYSQL_DATABASE: english_center_ai
+      MYSQL_USER: english_center
+      MYSQL_PASSWORD: password123
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U english_center"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -38,8 +39,10 @@ services:
       - "3000:3000"
     environment:
       NODE_ENV: development
-      DATABASE_URL: postgresql://english_center:password123@postgres:5432/english_center_dev
-      NEXT_PUBLIC_API_URL: http://localhost:3000
+      DATABASE_URL: "mysql://english_center:password123@postgres:3306/english_center_ai"
+      NEXT_PUBLIC_API_URL: "http://localhost:3000"
+      JWT_SECRET: "your-super-secret-jwt-key-change-in-production"
+      OPENAI_API_KEY: "sk-your-openai-api-key-here"
     depends_on:
       postgres:
         condition: service_healthy
@@ -48,7 +51,8 @@ services:
     volumes:
       - ./backend:/app/backend
       - /app/backend/.next
-    command: npm run dev
+    command: >
+      bash -c "npm install && npm run prisma:generate && npm run prisma:push && npm run dev"
 
   frontend:
     build:
@@ -58,7 +62,7 @@ services:
     ports:
       - "5173:5173"
     environment:
-      VITE_API_URL: http://localhost:3000
+      VITE_API_URL: "http://localhost:3000"
     depends_on:
       - backend
     volumes:
@@ -66,4 +70,4 @@ services:
       - /app/frontend/node_modules
 
 volumes:
-  postgres_data:
+  mysql_data:
