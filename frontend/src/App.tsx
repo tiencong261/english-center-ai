@@ -169,7 +169,7 @@ export default function App() {
 
         {/* Content Body */}
         <main style={{ flex: 1, padding: '2rem', backgroundColor: '#f8fafc', overflowY: 'auto', maxHeight: 'calc(100vh - 76px)' }}>
-          <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <div style={{ maxWidth: '100%', margin: '0 auto' }}>
             
             {activeTab === 'dashboard' && (
               <Dashboard role={role} onSwitchTab={(tabId) => setActiveTab(tabId)} />
